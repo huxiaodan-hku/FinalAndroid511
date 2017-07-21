@@ -10,25 +10,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android.finalandroid511.server.ServerConfig;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import static com.example.android.finalandroid511.server.ServerConfig.loginUrl;
+
 public class LoginActivity extends AppCompatActivity {
 
     Context context;
@@ -52,18 +48,21 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(context,EmployeeActivity.class));
+                /*
                 final String userNameStr = userNameEditText.getText().toString().trim();
                 final String passwordStr = passwordEditText.getText().toString().trim();
 
                 // 检查数据是否为空。
                 if (!userNameStr.isEmpty() && !passwordStr.isEmpty()) {
-                    login(userNameStr,passwordStr);
+                    login(userNameStr, passwordStr);
                 } else {
                     // 如果数据为空
                     Toast.makeText(context,
                             "Please enter the credentials!", Toast.LENGTH_LONG)
                             .show();
                 }
+                */
             }
         });
 
@@ -75,8 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
     }
-    public void login(final String userNameStr, final String passwordStr){
 
+    public void login(final String userNameStr, final String passwordStr) {
+
+        /*
         final ProgressDialog pDialog;
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -85,60 +86,52 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue mQueue = Volley.newRequestQueue(context);
 
 
-        JSONObject request = new JSONObject();
-        try {
-            request.put("username", userNameStr);
-            request.put("password", passwordStr);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, loginUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        hideDialog(pDialog);
 
-        JsonObjectRequest sq = new JsonObjectRequest(
-                Request.Method.POST,
-                ServerConfig.loginUrl,
-                request,
-                new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                hideDialog(pDialog);
-                try {
-                    boolean error = response.getBoolean("error");
-                    if (!error) {
-                        int id = response.getInt("userid");
-                        Intent intent = new Intent(context,MenuActivity.class);
-                        startActivity(intent);
-                    } else {
-                        // Error in login. Get the error message
-                        String errorMsg = response.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        try {
+                            int index=response.indexOf("{");
+                            String jsonString= response.substring(index);
+                            JSONObject jsonObject = new JSONObject(jsonString);
+                            boolean error = jsonObject.getBoolean("error");
+                            if (!error) {
+                                int id = jsonObject.getInt("userid");
+                                startActivity(new Intent(context, MenuActivity.class));
+                            } else {
+                                // Error in login. Get the error message
+                                String errorMsg = jsonObject.getString("error_msg");
+                                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
                     }
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-
-                }
-            }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog(pDialog);
+                Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }){
+        }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type","application/json; charset=UTF-8");
-                headers.put("User-agent", "My useragent");
-                return headers;
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parameters = new HashMap<String,String>();
+                parameters.put("username",userNameStr);
+                parameters.put("password",passwordStr);
+
+                return parameters;
             }
+
+
         };
-        mQueue.add(sq);
+        mQueue.add(stringRequest);
+        */
     }
+
     private void showDialog(ProgressDialog pDialog) {
         if (!pDialog.isShowing())
             pDialog.show();
