@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/firstPrimary"
+    tools:context="com.example.android.finalandroid511.LoginActivity">
+
+    <LinearLayout
+        android:background="@color/firstPrimary"
+        android:layout_centerInParent="true"
+        android:layout_width="@dimen/loginLayoutWidth"
+        android:layout_height="@dimen/loginLayoutHeight"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/firstPrimary"
+            android:fontFamily="monospace"
+            android:text="W A P"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    android:text="user"
+                    android:background="@drawable/roundbuttonleft"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <Button
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    android:text="manager"
+                    android:background="@drawable/roundbuttonright"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        <EditText
+            android:focusedByDefault="false"
+            android:layout_marginTop="1dp"
+            android:padding="8dp"
+            android:hint="Staff id"
+            android:textSize="14sp"
+            android:id="@+id/username_editText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/roundedittexttop" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <EditText
+            android:focusedByDefault="false"
+            android:padding="8dp"
+            android:hint="password"
+            android:textSize="14sp"
+            android:id="@+id/password_editText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/roundedittextbottom"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/button_log_in"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundbutton"
+            android:fontFamily="monospace"
+            android:padding="8dp"
+            android:text="Log in"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:id="@+id/textView_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:fontFamily="monospace"
+            android:textAlignment="center"
+            android:text="Sign up here."
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

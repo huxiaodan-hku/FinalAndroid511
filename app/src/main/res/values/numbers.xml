@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="loginLayoutWidth">250dp</dimen>
+    <dimen name="loginLayoutHeight">320dp</dimen>
+    <dimen name="commonWidth">2000dp</dimen>
+    <dimen name="commonHeight">2000dp</dimen>
+
+</resources>
