@@ -41,6 +41,7 @@ public class Employees extends Fragment {
         context = getContext();
 
         RequestQueue queue = Volley.newRequestQueue(context);
+        System.out.println("d");
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ServerConfig.employeesUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override
