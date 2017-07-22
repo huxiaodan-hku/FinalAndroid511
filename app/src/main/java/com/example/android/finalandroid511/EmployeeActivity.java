@@ -14,8 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-
-
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         Departments.OnFragmentInteractionListener{
 
@@ -23,19 +21,13 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //初始化显示的 Fragment
         if (savedInstanceState == null) {
-            Fragment fragment = null;
-            Class fragmentClass = Employees.class;
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            initialShowFragment(Employees.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -46,6 +38,18 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initialShowFragment(Class<Employees> employeesClass) {
+            Fragment fragment = null;
+            Class fragmentClass = Employees.class;
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 
     @Override
